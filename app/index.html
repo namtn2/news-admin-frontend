@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>News Admin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    <meta name="google-signin-client_id"-->
+    <!--          content="785259876868-92a13mgl9gpe2i0knu2budtum9ov6edi.apps.googleusercontent.com">-->
+    <!--    &lt;!&ndash;  <link rel="stylesheet" href="lib/html5-boilerplate/dist/css/normalize.css">&ndash;&gt;-->
+    <!--  <link rel="stylesheet" href="lib/html5-boilerplate/dist/css/main.css">-->
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+</head>
+
+<body ng-app="myApp">
+<div class="wrapper">
+    <div ng-include="'modules/header/header.html'"
+         ng-if="location.path() !== '/login' && location.path() !== '/register'"></div>
+    <div ng-include="'modules/main-sidebar/main-sidebar.html'"
+         ng-if="location.path() !== '/login' && location.path() !== '/register'"></div>
+    <div ng-view=""></div>
+    <div ng-include="'modules/footer/footer.html'"
+         ng-if="location.path() !== '/login' && location.path() !== '/register'"></div>
+</div>
+
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular-route/angular-route.js"></script>
+<script src="lib/angular-cookies/angular-cookies.js"></script>
+<script src="lib/angular-recaptcha/release/angular-recaptcha.js"></script>
+
+<script src="app.js"></script>
+<script src="modules/authentication/login-controllers.js"></script>
+<script src="modules/authentication/register-controllers.js"></script>
+<script src="modules/authentication/authentication-services.js"></script>
+
+<script src="modules/category/category-controllers.js"></script>
+<script src="modules/category/create-update-category-controllers.js"></script>
+<script src="modules/category/category-services.js"></script>
+
+<script src="modules/news/news-controllers.js"></script>
+<script src="modules/news/create-update-news-controllers.js"></script>
+<script src="modules/news/news-services.js"></script>
+
+<script src="core/version/version.js"></script>
+<script src="core/version/version-directive.js"></script>
+<script src="core/version/interpolate-filter.js"></script>
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- jQuery -->
+<!-- jQuery UI 1.11.4 -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+  <script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<script src="plugins/toastr/toastr.min.js"></script>
+
+<script src="dist/js/ckeditor/ckeditor.js"></script>
+<script src="dist/js/ng-ckeditor/dist/ng-ckeditor.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-aria.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular-animate.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.20/angular-ui-router.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
+
+</body>
+</html>

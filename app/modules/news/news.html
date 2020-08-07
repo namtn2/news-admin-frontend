@@ -1,0 +1,132 @@
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>News</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">News</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-header">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Category name</label>
+                        <select class="form-control" ng-model="objectSearch.categoryId">
+                            <option value="null">--- Select ---</option>
+                            <option ng-repeat="cate in categories" value={{cate.id}}>{{cate.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" placeholder="Enter title ..."
+                               ng-model="objectSearch.title">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Active</label>
+                        <select class="form-control" ng-model="objectSearch.active">
+                            <option value="2">--- Select ---</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-sm-6">
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-block btn-primary" ng-click="doSearch()"><i
+                            class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-block btn-primary" ng-click="doAdd()"><i
+                            class="fas fa-plus"></i> Add new
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">News list</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fas fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th style="width: 20%">
+                                Category Name
+                            </th>
+                            <th style="width: 20%">
+                                Title
+                            </th>
+                            <th style="width: 20%">
+                                Content
+                            </th>
+                            <th style="width: 8%" class="text-center">
+                                Active
+                            </th>
+                            <th style="width: 20%">
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="new in news">
+                            <td>
+                                <a>
+                                    {{new.categoryName}}
+                                </a>
+                                <br/>
+                                <small>
+                                    Created at {{new.createTime | date : shortDate}}
+                                </small>
+                            </td>
+                            <td>
+                                <a>
+                                    {{new.title}}
+                                </a>
+                            </td>
+                            <td style="width: 20%">
+                                <a>
+                                    {{new.content}}
+                                </a>
+                            </td>
+                            <td class="project-state">
+                                <span class="badge badge-success">{{new.active}}</span>
+                            </td>
+                            <td class="project-actions text-right" id={{new.id}}>
+                                <button type="button" class="btn btn-info btn-sm" ng-click="doEdit(new.id)">
+                                    <i class="fas fa-pencil-alt"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-sm" ng-click="doDelete(new.id)">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

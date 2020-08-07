@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{title}}</title>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>{{title}}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">News</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-header">
+            <div class="row col-sm-6">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Category name</label>
+                        <select class="form-control" name="categoryId" ng-model="objectModal.categoryId">
+                            <option ng-repeat="cate in categories" value={{cate.id}}>{{cate.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" name="title" class="form-control" placeholder="Enter title ..." ng-model="objectModal.title" required>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Active</label>
+                        <select class="form-control" name="active" ng-model="objectModal.active">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Content</label>
+                        <ng-ckeditor ng-model="objectModal.content" ng-required="true">
+                        </ng-ckeditor>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-sm-6">
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-block btn-primary" ng-click="doCancel()">
+                        <i class="fas fa-ban"></i> Cancel
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-block btn-primary" ng-click="doSave()">
+                        <i class="fas fa-plus"></i> Save
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

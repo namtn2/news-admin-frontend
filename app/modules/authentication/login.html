@@ -1,0 +1,59 @@
+<div class="login-box">
+    <div class="login-logo">
+        <a href="../../index.html"><b>News</b>Admin</a>
+    </div>
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+
+            <form ng-submit="doLogin()" name="form" role="form">
+                <div class="input-group mb-3">
+                    <input type="email" name="email" class="form-control" placeholder="Email" ng-model="email"
+                           minlength="4" maxlength="127" required>
+                    <!--                    <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>-->
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="Password"
+                           ng-model="password" minlength="8" maxlength="10" required>
+                    <!--                    <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>-->
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <div vc-recaptcha key="publicKeyCaptcha"></div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember" ng-model="rememberMe" ng-checked="true" ng-change="changeValue()">
+                            <label for="remember">
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="social-auth-links text-center mb-3">
+                <p>- OR -</p>
+                <button type="button" class="btn btn-block btn-danger" id="googleBtn">
+                    <i class="fab fa-google mr-2"></i>Sign in using Google
+                </button>
+            </div>
+            <p class="mb-0">
+                <a href="#!/register" class="text-center">Register a new membership</a>
+            </p>
+        </div>
+    </div>
+</div>
