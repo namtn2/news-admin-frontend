@@ -3,8 +3,8 @@
 angular.module('Authentication')
 
     .factory('AuthenticationService',
-        ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout',
-            function (Base64, $http, $cookieStore, $rootScope, $timeout, $scope) {
+        ['Base64', '$http', '$cookieStore', '$rootScope',
+            function (Base64, $http, $cookieStore, $rootScope, $scope) {
                 var service = {};
                 var api = 'http://localhost:8080/user/';
                 var vm = $scope;
@@ -21,43 +21,46 @@ angular.module('Authentication')
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {
-                        vm.showNotiDanger('Error while trying login');
+//                        vm.showNotiDanger('Error while trying login');
                     });
                 };
 
                 service.loginGoogle = function (idToken, callback) {
 
                     $http({
-                        method: 'get',
-                        url: api + 'login/' + idToken,
+                        method: 'post',
+                        url: api + 'login-google',
+                        data: idToken
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {
-                        vm.showNotiDanger('Error while trying to login with google');
+//                        vm.showNotiDanger('Error while trying to login with google');
                     });
                 };
 
                 service.registerGoogle = function (idToken, callback) {
 
                     $http({
-                        method: 'get',
-                        url: api + 'register/' + idToken,
+                        method: 'post',
+                        url: api + 'register-google',
+                        data: idToken
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {
-                        vm.showNotiDanger('Error while trying to registry with google');
+//                        vm.showNotiDanger('Error while trying to registry with google');
                     });
                 };
 
                 service.validateCaptcha = function (idToken, callback) {
 
                     $http({
-                        method: 'get',
-                        url: api + 'g-captcha/' + idToken,
+                        method: 'post',
+                        url: api + 'g-captcha',
+                        data: idToken
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {
-                        vm.showNotiDanger('Error while trying to connect to service');
+//                        vm.showNotiDanger('Error while trying to connect to service');
                     });
                 };
 
@@ -70,15 +73,22 @@ angular.module('Authentication')
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {
-                        vm.showNotiDanger('Error while trying to registration');
+//                        vm.showNotiDanger('Error while trying to registration');
                     });
                 };
 
                 service.SetCredentials = function (user) {
                     var authdata = Base64.encode(user.email + ':' + user.password);
-
+                    var expireDate = new Date();
+                    
+                    expireDate.setMinutes(new Date().getMinutes() + 1);
+                    if($rootScope.rememberUserCookie == true){
+                        expireDate.setDate(expireDate.getDate() + 1);
+                    }
+                    
                     $rootScope.globals = {
-                        currentUser: user
+                        currentUser: user,
+                        expiresTime: expireDate
                     };
 
                     $rootScope.globals.currentUser.authdata = authdata;

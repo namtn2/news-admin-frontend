@@ -103,15 +103,15 @@
                             </td>
                             <td>
                                 <a>
-                                    {{new.title}}
+                                    {{new.title | limitTo: 100 }} ...
                                 </a>
                             </td>
                             <td style="width: 20%">
                                 <a>
-                                    {{new.content}}
+                                    {{new.content | limitTo: 100 }} ...
                                 </a>
                             </td>
-                            <td class="project-state">
+                            <td class="project-state text-center">
                                 <span class="badge badge-success">{{new.active}}</span>
                             </td>
                             <td class="project-actions text-right" id={{new.id}}>

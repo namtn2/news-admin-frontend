@@ -28,7 +28,6 @@
     "protractor": "^5.4.1"
   },
   "scripts": {
-    "run": "npm run start",
     "postinstall": "npm run copy-libs",
     "update-deps": "npm update",
     "postupdate-deps": "npm run copy-libs",

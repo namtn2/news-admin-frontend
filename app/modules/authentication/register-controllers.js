@@ -49,7 +49,6 @@ angular.module('Register')
 
                 vm.attachSignin = function (element) {
                     auth2.attachClickHandler(element, {}, function (googleUser) {
-                        console.log(googleUser.getAuthResponse());
                         AuthenticationService.registerGoogle(googleUser.getAuthResponse().id_token, function (response) {
                             if (response.key === "SUCCESS") {
                                 if (response.object.id == null) {
