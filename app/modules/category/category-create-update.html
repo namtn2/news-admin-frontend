@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{title}}</title>
+    </head>
+    <body class="hold-transition sidebar-mini">
+        <div class="wrapper">
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>{{title}}</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active">Category</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="content-header">
+                    <form ng-submit="doSave()">
+                        <div class="row col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group mb-3">
+                                    <label>Category name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Enter category name ..." ng-model="objectModal.name"
+                                           minlength="2" maxlength="127" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group mb-3">
+                                    <label>Active</label>
+                                    <select class="form-control" name="active" ng-model="objectModal.active">
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-sm-12">
+                            <div class="col-sm-6" style="text-align: right;">
+                                <button type="button" class="btn btn-primary" ng-click="doCancel()">
+                                    <i class="fas fa-ban"></i> Cancel
+                                </button>
+                            </div>
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>

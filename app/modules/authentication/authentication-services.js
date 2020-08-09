@@ -2,194 +2,193 @@
 
 angular.module('Authentication')
 
-    .factory('AuthenticationService',
-        ['Base64', '$http', '$cookieStore', '$rootScope',
-            function (Base64, $http, $cookieStore, $rootScope, $scope) {
-                var service = {};
-                var api = 'http://localhost:8080/user/';
-                var vm = $scope;
+        .factory('AuthenticationService',
+                ['Base64', '$http', '$cookieStore', '$rootScope', 'CommonController',
+                    function (Base64, $http, $cookieStore, $rootScope, CommonController) {
+                        var service = {};
+                        var api = 'http://localhost:8080/user/';
 
-                service.login = function (email, password, callback) {
+                        service.login = function (email, password, callback) {
 
-                    $http({
-                        method: 'post',
-                        url: api + 'login',
-                        data: {
-                            email: email,
-                            password: password
+                            $http({
+                                method: 'post',
+                                url: api + 'login',
+                                data: {
+                                    email: email,
+                                    password: password
+                                }
+                            }).then(function (response) {
+                                callback(response.data);
+                            }, function (error) {
+                                CommonController.showNotiDanger('Error while trying login');
+                            });
+                        };
+
+                        service.loginGoogle = function (idToken, callback) {
+
+                            $http({
+                                method: 'post',
+                                url: api + 'login-google',
+                                data: idToken
+                            }).then(function (response) {
+                                callback(response.data);
+                            }, function (error) {
+                                CommonController.showNotiDanger('Error while trying to login with google');
+                            });
+                        };
+
+                        service.registerGoogle = function (idToken, callback) {
+
+                            $http({
+                                method: 'post',
+                                url: api + 'register-google',
+                                data: idToken
+                            }).then(function (response) {
+                                callback(response.data);
+                            }, function (error) {
+                                CommonController.showNotiDanger('Error while trying to registry with google');
+                            });
+                        };
+
+                        service.validateCaptcha = function (idToken, callback) {
+
+                            $http({
+                                method: 'post',
+                                url: api + 'g-captcha',
+                                data: idToken
+                            }).then(function (response) {
+                                callback(response.data);
+                            }, function (error) {
+                                CommonController.showNotiDanger('Error while trying to connect to service');
+                            });
+                        };
+
+                        service.register = function (user, callback) {
+
+                            $http({
+                                method: 'post',
+                                url: api + 'create',
+                                data: user
+                            }).then(function (response) {
+                                callback(response.data);
+                            }, function (error) {
+                                CommonController.showNotiDanger('Error while trying to registration');
+                            });
+                        };
+
+                        service.SetCredentials = function (user) {
+                            var authdata = Base64.encode(user.email + ':' + user.password);
+                            var expireDate = new Date();
+
+                            expireDate.setMinutes(new Date().getMinutes() + 1);
+                            if ($rootScope.rememberUserCookie == true) {
+                                expireDate.setDate(expireDate.getDate() + 1);
+                            }
+
+                            $rootScope.globals = {
+                                currentUser: user,
+                                expiresTime: expireDate
+                            };
+
+                            $rootScope.globals.currentUser.authdata = authdata;
+
+                            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+                            $cookieStore.put('globals', $rootScope.globals);
+                        };
+
+                        service.ClearCredentials = function () {
+                            $rootScope.globals = {};
+                            $cookieStore.remove('globals');
+                            $http.defaults.headers.common.Authorization = 'Basic ';
+                        };
+
+                        return service;
+                    }])
+
+        .factory('Base64', function () {
+            /* jshint ignore:start */
+
+            var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+            return {
+                encode: function (input) {
+                    var output = "";
+                    var chr1, chr2, chr3 = "";
+                    var enc1, enc2, enc3, enc4 = "";
+                    var i = 0;
+
+                    do {
+                        chr1 = input.charCodeAt(i++);
+                        chr2 = input.charCodeAt(i++);
+                        chr3 = input.charCodeAt(i++);
+
+                        enc1 = chr1 >> 2;
+                        enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+                        enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+                        enc4 = chr3 & 63;
+
+                        if (isNaN(chr2)) {
+                            enc3 = enc4 = 64;
+                        } else if (isNaN(chr3)) {
+                            enc4 = 64;
                         }
-                    }).then(function (response) {
-                        callback(response.data);
-                    }, function (error) {
-//                        vm.showNotiDanger('Error while trying login');
-                    });
-                };
 
-                service.loginGoogle = function (idToken, callback) {
+                        output = output +
+                                keyStr.charAt(enc1) +
+                                keyStr.charAt(enc2) +
+                                keyStr.charAt(enc3) +
+                                keyStr.charAt(enc4);
+                        chr1 = chr2 = chr3 = "";
+                        enc1 = enc2 = enc3 = enc4 = "";
+                    } while (i < input.length);
 
-                    $http({
-                        method: 'post',
-                        url: api + 'login-google',
-                        data: idToken
-                    }).then(function (response) {
-                        callback(response.data);
-                    }, function (error) {
-//                        vm.showNotiDanger('Error while trying to login with google');
-                    });
-                };
+                    return output;
+                },
 
-                service.registerGoogle = function (idToken, callback) {
+                decode: function (input) {
+                    var output = "";
+                    var chr1, chr2, chr3 = "";
+                    var enc1, enc2, enc3, enc4 = "";
+                    var i = 0;
 
-                    $http({
-                        method: 'post',
-                        url: api + 'register-google',
-                        data: idToken
-                    }).then(function (response) {
-                        callback(response.data);
-                    }, function (error) {
-//                        vm.showNotiDanger('Error while trying to registry with google');
-                    });
-                };
-
-                service.validateCaptcha = function (idToken, callback) {
-
-                    $http({
-                        method: 'post',
-                        url: api + 'g-captcha',
-                        data: idToken
-                    }).then(function (response) {
-                        callback(response.data);
-                    }, function (error) {
-//                        vm.showNotiDanger('Error while trying to connect to service');
-                    });
-                };
-
-                service.register = function (user, callback) {
-
-                    $http({
-                        method: 'post',
-                        url: api + 'create',
-                        data: user
-                    }).then(function (response) {
-                        callback(response.data);
-                    }, function (error) {
-//                        vm.showNotiDanger('Error while trying to registration');
-                    });
-                };
-
-                service.SetCredentials = function (user) {
-                    var authdata = Base64.encode(user.email + ':' + user.password);
-                    var expireDate = new Date();
-                    
-                    expireDate.setMinutes(new Date().getMinutes() + 1);
-                    if($rootScope.rememberUserCookie == true){
-                        expireDate.setDate(expireDate.getDate() + 1);
+                    // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+                    var base64test = /[^A-Za-z0-9\+\/\=]/g;
+                    if (base64test.exec(input)) {
+                        window.alert("There were invalid base64 characters in the input text.\n" +
+                                "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+                                "Expect errors in decoding.");
                     }
-                    
-                    $rootScope.globals = {
-                        currentUser: user,
-                        expiresTime: expireDate
-                    };
+                    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
 
-                    $rootScope.globals.currentUser.authdata = authdata;
+                    do {
+                        enc1 = keyStr.indexOf(input.charAt(i++));
+                        enc2 = keyStr.indexOf(input.charAt(i++));
+                        enc3 = keyStr.indexOf(input.charAt(i++));
+                        enc4 = keyStr.indexOf(input.charAt(i++));
 
-                    $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-                    $cookieStore.put('globals', $rootScope.globals);
-                };
+                        chr1 = (enc1 << 2) | (enc2 >> 4);
+                        chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+                        chr3 = ((enc3 & 3) << 6) | enc4;
 
-                service.ClearCredentials = function () {
-                    $rootScope.globals = {};
-                    $cookieStore.remove('globals');
-                    $http.defaults.headers.common.Authorization = 'Basic ';
-                };
+                        output = output + String.fromCharCode(chr1);
 
-                return service;
-            }])
+                        if (enc3 != 64) {
+                            output = output + String.fromCharCode(chr2);
+                        }
+                        if (enc4 != 64) {
+                            output = output + String.fromCharCode(chr3);
+                        }
 
-    .factory('Base64', function () {
-        /* jshint ignore:start */
+                        chr1 = chr2 = chr3 = "";
+                        enc1 = enc2 = enc3 = enc4 = "";
 
-        var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+                    } while (i < input.length);
 
-        return {
-            encode: function (input) {
-                var output = "";
-                var chr1, chr2, chr3 = "";
-                var enc1, enc2, enc3, enc4 = "";
-                var i = 0;
-
-                do {
-                    chr1 = input.charCodeAt(i++);
-                    chr2 = input.charCodeAt(i++);
-                    chr3 = input.charCodeAt(i++);
-
-                    enc1 = chr1 >> 2;
-                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-                    enc4 = chr3 & 63;
-
-                    if (isNaN(chr2)) {
-                        enc3 = enc4 = 64;
-                    } else if (isNaN(chr3)) {
-                        enc4 = 64;
-                    }
-
-                    output = output +
-                        keyStr.charAt(enc1) +
-                        keyStr.charAt(enc2) +
-                        keyStr.charAt(enc3) +
-                        keyStr.charAt(enc4);
-                    chr1 = chr2 = chr3 = "";
-                    enc1 = enc2 = enc3 = enc4 = "";
-                } while (i < input.length);
-
-                return output;
-            },
-
-            decode: function (input) {
-                var output = "";
-                var chr1, chr2, chr3 = "";
-                var enc1, enc2, enc3, enc4 = "";
-                var i = 0;
-
-                // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
-                var base64test = /[^A-Za-z0-9\+\/\=]/g;
-                if (base64test.exec(input)) {
-                    window.alert("There were invalid base64 characters in the input text.\n" +
-                        "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-                        "Expect errors in decoding.");
+                    return output;
                 }
-                input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+            };
 
-                do {
-                    enc1 = keyStr.indexOf(input.charAt(i++));
-                    enc2 = keyStr.indexOf(input.charAt(i++));
-                    enc3 = keyStr.indexOf(input.charAt(i++));
-                    enc4 = keyStr.indexOf(input.charAt(i++));
-
-                    chr1 = (enc1 << 2) | (enc2 >> 4);
-                    chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-                    chr3 = ((enc3 & 3) << 6) | enc4;
-
-                    output = output + String.fromCharCode(chr1);
-
-                    if (enc3 != 64) {
-                        output = output + String.fromCharCode(chr2);
-                    }
-                    if (enc4 != 64) {
-                        output = output + String.fromCharCode(chr3);
-                    }
-
-                    chr1 = chr2 = chr3 = "";
-                    enc1 = enc2 = enc3 = enc4 = "";
-
-                } while (i < input.length);
-
-                return output;
-            }
-        };
-
-        /* jshint ignore:end */
-    })
-;
+            /* jshint ignore:end */
+        })
+        ;
 

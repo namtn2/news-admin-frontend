@@ -3,8 +3,8 @@
 angular.module('Authentication')
 
         .controller('LoginController',
-                ['$scope', '$rootScope', '$location', 'AuthenticationService', 'Constants', 'vcRecaptchaService', '$timeout',
-                    function ($scope, $rootScope, $location, AuthenticationService, Constants, vcRecaptchaService, $timeout) {
+                ['$scope', '$rootScope', '$location', 'AuthenticationService', 'Constants', 'vcRecaptchaService', '$timeout','CommonController',
+                    function ($scope, $rootScope, $location, AuthenticationService, Constants, vcRecaptchaService, $timeout, CommonController) {
                         // reset login status
                         AuthenticationService.ClearCredentials();
 
@@ -24,11 +24,11 @@ angular.module('Authentication')
                                             AuthenticationService.SetCredentials(response.object);
                                             $location.path('/');
                                         } else {
-                                            vm.showNotiDanger(response.message);
+                                            CommonController.showNotiDanger(response.message);
                                         }
                                     });
                                 } else {
-                                    vm.showNotiDanger(response.message);
+                                    CommonController.showNotiDanger(response.message);
                                 }
                             });
                         };
@@ -58,32 +58,13 @@ angular.module('Authentication')
                                         AuthenticationService.SetCredentials(response.object);
                                         $location.path('/');
                                     } else {
-                                        vm.showNotiDanger(response.message);
+                                        CommonController.showNotiDanger(response.message);
                                     }
                                 });
                             }, function (error) {
-                                vm.showNotiDanger(error);
+                                CommonController.showNotiDanger(error);
                             });
                         };
-
-                        // vm.loginGoogle = function () {
-                        // gapi.auth.authorize({
-                        // client_id: Constants.GLOGIN.CLIENT_ID,
-                        // scope: Constants.GLOGIN.SCOPE_GOOGLE,
-                        // response_type: 'id_token',
-                        //     immediate: false
-                        // }, function (authResult) {
-                        //     console.log(authResult);
-                        // AuthenticationService.loginGoogle(authResult.id_token, function (response) {
-                        //     if (response.key === "SUCCESS") {
-                        //         AuthenticationService.SetCredentials(response.object);
-                        //         $location.path('/');
-                        //     } else {
-                        //         vm.showNotiDanger(response.message);
-                        //     }
-                        // });
-                        // });
-                        // };
 
                         vm.doRegister = function () {
                             $location.path('register');

@@ -1,79 +1,81 @@
-<div class="register-box">
-    <div class="login-logo">
-        <a href="../../index.html"><b>News</b>Admin</a>
-    </div>
-    <div class="card">
-        <div class="card-body register-card-body">
-            <p class="login-box-msg">Register a new membership</p>
-            <form ng-submit="doRegister()" name="form" role="form">
-                <div class="card-body">
-                    <div class="input-group mb-3">
-                        <input type="text" name="name" class="form-control" id="iname" minlength="2" maxlength="127"
-                               placeholder="Enter your full name" ng-model="object.name" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+<div class="hold-transition register-page">
+    <div class="register-box">
+        <div class="login-logo">
+            <a href="../../index.html"><b>News</b>Admin</a>
+        </div>
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Register a new membership</p>
+                <form ng-submit="doRegister()" name="form" role="form">
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <input type="text" name="name" class="form-control" id="iname" minlength="2" maxlength="127"
+                                   placeholder="Enter your full name" ng-model="object.name" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="email" name="email" class="form-control" id="iemail" minlength="4" maxlength="127"
-                               placeholder="Enter email" ng-model="object.email" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                        <div class="input-group mb-3">
+                            <input type="email" name="email" class="form-control" id="iemail" minlength="4" maxlength="127"
+                                   placeholder="Enter email" ng-model="object.email" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="tel" name="phone" id="iphone" pattern="(09|08|03)+([0-9]{8})\b" class="form-control"
-                               placeholder="Enter phone number" ng-model="object.phone" required minlength="10" maxlength="10">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-phone"></span>
+                        <div class="input-group mb-3">
+                            <input type="tel" name="phone" id="iphone" pattern="(09|08|03)+([0-9]{8})\b" class="form-control"
+                                   placeholder="Enter phone number" ng-model="object.phone" required minlength="10" maxlength="10">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-phone"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" id="ipassword"
-                               placeholder="Enter password" ng-model="object.password" required minlength="8" maxlength="10">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                        <div class="input-group mb-3">
+                            <input type="password" name="password" class="form-control" id="ipassword"
+                                   placeholder="Enter password" ng-model="object.password" required minlength="8" maxlength="10">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" name="retypePassword" class="form-control" id="iretypePassword"
-                               placeholder="Retype password" ng-model="object.retypePassword" ng-change="check()" ng-model-options='{ debounce: 1000 }' required minlength="8" maxlength="10">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                        <div class="input-group mb-3">
+                            <input type="password" name="retypePassword" class="form-control" id="iretypePassword"
+                                   placeholder="Retype password" ng-model="object.retypePassword" ng-change="check()" ng-model-options='{debounce: 1000}' required minlength="8" maxlength="10">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mb-3 input-group">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="terms" class="custom-control-input" id="iterms" required>
-                            <label class="custom-control-label" for="iterms">I agree to the <a href="#">terms of
-                                service</a>.</label>
+                        <div class="mb-3 input-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="terms" class="custom-control-input" id="iterms" required>
+                                <label class="custom-control-label" for="iterms">I agree to the <a href="#">terms of
+                                        service</a>.</label>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div vc-recaptcha key="publicKeyCaptcha"></div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <div vc-recaptcha key="publicKeyCaptcha"></div>
-                    </div>
+                    <button type="submit" class="btn btn-block btn-primary" style="position: inherit;left: 35.5%;">Register</button>
+                </form>
+
+                <div class="social-auth-links text-center">
+                    <p>- OR -</p>
+                    <button type="button" class="btn btn-block btn-danger" id="googleBtnRegis">
+                        <i class="fab fa-google mr-2"></i>Sign up with Google
+                    </button>
                 </div>
-                <button type="submit" class="btn btn-block btn-primary" style="position: inherit;left: 35.5%;">Register</button>
-            </form>
 
-            <div class="social-auth-links text-center">
-                <p>- OR -</p>
-                <button type="button" class="btn btn-block btn-danger" id="googleBtnRegis">
-                    <i class="fab fa-google mr-2"></i>Sign up with Google
-                </button>
+                <a href="#!/login.html" class="text-center">I already have a membership</a>
             </div>
-
-            <a href="#!/login.html" class="text-center">I already have a membership</a>
         </div>
     </div>
 </div>

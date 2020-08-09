@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('Category')
-        .controller('CategoryController', ['$scope', '$location', 'CategoryService', 'DataCategory', 'Modals',
-            function ($scope, $location, CategoryService, DataCategory, Modals) {
+        .controller('CategoryController', ['$scope', '$location', 'CategoryService', 'DataCategory', 'Modals', 'CommonController',
+            function ($scope, $location, CategoryService, DataCategory, Modals, CommonController) {
 
                 var vm = $scope;
 
@@ -45,7 +45,7 @@ angular.module('Category')
                             if (response.key === "SUCCESS") {
                                 vm.doSearch();
                             }
-                            vm.showNotiCondition(response.key, 'Delete success !', response.message);
+                            CommonController.showNotiCondition(response.key, 'Delete success !', response.message);
                         });
                     });
                 };
@@ -60,5 +60,6 @@ angular.module('Category')
                 vm.doAdd = function () {
                     $location.path('/modal-category');
                 };
-            }]);
+            }
+        ]);
 

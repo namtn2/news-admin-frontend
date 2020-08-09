@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('News')
-        .controller('NewsController', ['$scope', '$location', 'NewsService', 'DataNews', 'CategoryService', '$timeout', 'Modals',
-            function ($scope, $location, NewsService, DataNews, CategoryService, $timeout, Modals) {
+        .controller('NewsController', ['$scope', '$location', 'NewsService', 'DataNews', 'CategoryService', '$timeout', 'Modals', 'CommonController',
+            function ($scope, $location, NewsService, DataNews, CategoryService, $timeout, Modals, CommonController) {
 
                 var vm = $scope;
 
@@ -10,8 +10,8 @@ angular.module('News')
                 vm.news = [];
                 vm.objectSearch = {
                     name: "",
-                    active: "2",
-                    categoryId: "null"
+                    active: "",
+                    categoryId: ""
                             // currentPage: 1,
                             // maxSize: 10
                 };
@@ -29,12 +29,6 @@ angular.module('News')
 
                 vm.doSearch = function () {
                     var object = angular.copy(vm.objectSearch);
-                    if (object.active === "2") {
-                        object.active = null;
-                    }
-                    if (object.categoryId == "null") {
-                        object.categoryId = null;
-                    }
                     $timeout(function () {
                         //timeout for waiting categories is queried
                         NewsService.search(object, function (response) {
@@ -67,7 +61,7 @@ angular.module('News')
                             if (response.key === "SUCCESS") {
                                 vm.doSearch();
                             }
-                            vm.showNotiCondition(response.key, 'Delete success !', response.message);
+                            CommonController.showNotiCondition(response.key, 'Delete success !', response.message);
                         });
                     });
                 };

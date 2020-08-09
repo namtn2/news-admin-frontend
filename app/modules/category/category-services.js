@@ -3,10 +3,9 @@
 angular.module('Category')
 
     .factory('CategoryService',
-        ['$http', function ($http, $scope) {
+        ['$http', 'CommonController', function ($http, CommonController) {
                 var service = {};
                 var api = 'http://localhost:8080/category-api/';
-                var vm = $scope;
 
                 service.list = function (callback) {
 
@@ -17,7 +16,7 @@ angular.module('Category')
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {
-                        vm.showNotiDanger('Error while calling get data api');
+                        CommonController.showNotiDanger('Error while calling get data api');
                     });
                 };
 
@@ -30,7 +29,7 @@ angular.module('Category')
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {
-                        vm.showNotiDanger('Error while calling get data api');
+                        CommonController.showNotiDanger('Error while calling get data api');
                     });
                 };
 
@@ -42,7 +41,7 @@ angular.module('Category')
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {
-                        vm.showNotiDanger('Error while calling get data api');
+                        CommonController.showNotiDanger('Error while calling get data api');
                     });
                 };
 
@@ -55,7 +54,7 @@ angular.module('Category')
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {
-                        vm.showNotiDanger('Error while calling add/update api');
+                        CommonController.showNotiDanger('Error while calling add/update api');
                     });
                 };
 
@@ -67,7 +66,7 @@ angular.module('Category')
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {
-                        vm.showNotiDanger('Error while calling delete api');
+                        CommonController.showNotiDanger('Error while calling delete api');
                     });
                 };
                 return service;
