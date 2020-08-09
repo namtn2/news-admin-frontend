@@ -26,7 +26,7 @@ angular.module('News')
                     $http({
                         method: 'post',
                         url: api + 'search',
-                        data: objectSearch,
+                        data: objectSearch
                     }).then(function (response) {
                         callback(response.data);
                     }, function (error) {

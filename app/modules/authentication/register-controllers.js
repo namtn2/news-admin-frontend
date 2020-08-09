@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('Register')
+angular.module('Authentication')
 
     .controller('RegisterController',
         ['$scope', '$rootScope', '$location', 'AuthenticationService', 'Constants', 'vcRecaptchaService', '$timeout',

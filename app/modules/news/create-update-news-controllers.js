@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('CreateUpdateNews')
+angular.module('News')
     .controller('CreateUpdateNewsController', ['$scope', '$location', 'NewsService', 'DataNews', function ($scope, $location, NewsService, DataNews) {
 
         var vm = $scope;

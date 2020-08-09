@@ -29,6 +29,7 @@
                     <div class="form-group">
                         <label>Category name</label>
                         <select class="form-control" name="categoryId" ng-model="objectModal.categoryId">
+                            <option value="0">--- Select ---</option>
                             <option ng-repeat="cate in categories" value={{cate.id}}>{{cate.name}}</option>
                         </select>
                     </div>
@@ -51,7 +52,7 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label>Content</label>
-                        <ng-ckeditor ng-model="objectModal.content" ng-required="true">
+                        <ng-ckeditor ng-model="objectModal.content" required>
                         </ng-ckeditor>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('CreateUpdateCategory')
+angular.module('Category')
     .controller('CreateUpdateCategoryController', ['$scope', '$location', 'CategoryService', 'DataCategory', function ($scope, $location, CategoryService, DataCategory) {
 
         var vm = $scope;
