@@ -1,0 +1,179 @@
+<div class="wrapper">
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Log Management</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Log Management</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-header">
+            <div class="row col-sm-12">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>User</label>
+                        <input type="text" class="form-control" placeholder="Enter email or name ..."
+                               ng-model="objectSearch.email">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Log type</label>
+                        <select class="form-control" ng-model="objectSearch.logType">
+                            <option value="">--- Select ---</option>
+                            <option ng-repeat="logType in configList" value={{logType.key}}>{{logType.value}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Log status</label>
+                        <select class="form-control" ng-model="objectSearch.status">
+                            <option value="">--- Select ---</option>
+                            <option value="SUCCESS">SUCCESS</option>
+                            <option value="FAIL">FAIL</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Log message</label>
+                        <input type="text" class="form-control" placeholder="Enter log message ..."
+                               ng-model="objectSearch.message">
+                    </div>
+                </div>
+            </div>
+            <div class="row col-sm-12">
+                <div class="col-sm-12" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" ng-click="doSearch()"><i
+                            class="fas fa-search"></i> Search
+                    </button>
+                </div>
+<!--                <div class="col-sm-6">
+                    <button type="button" class="btn btn-primary"><i
+                            class="fas fa-plus"></i> Add new
+                    </button>
+                </div>-->
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Log list</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fas fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th style="width: 15%">
+                                User
+                            </th>
+                            <th style="width: 10%">
+                                Log type
+                            </th>
+                            <th style="width: 15%" class="text-center">
+                                Status
+                            </th>
+                            <th style="width: 45%">
+                                Message
+                            </th>
+                            <th style="width: 10%">
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="log in logs">
+                            <td>
+                                <a>
+                                    User: {{log.name}}
+                                </a>
+                                <br/>
+                                <small>
+                                    Email: {{log.email}}
+                                </small>
+                                <br/>
+                                <small>
+                                    Issue at {{log.createTime | date: 'dd/MM/yyyy HH:mm:ss'}}
+                                </small>
+                            </td>
+                            <td>
+                                <a>
+                                    {{log.logType}}
+                                </a>
+                            </td>
+                            <td class="project-state text-center">
+                                    <span ng-show="log.status == 'SUCCESS' " class="badge badge-success">
+                                        {{log.status}}
+                                    </span>
+                                <span ng-show="log.status == 'FAIL' " class="badge badge-danger">
+                                        {{log.status}}
+                                    </span>
+                            </td>
+                            <td>
+                                <a>
+                                    {{log.message}}
+                                </a>
+                            </td>
+                            <td class="project-actions text-right">
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <i class="fas fa-info"></i> View detail
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <!--                    <ul class="pagination" uib-pagination-->
+                    <!--                         boundary-links="true"-->
+                    <!--                         total-items="pagination.totalItems"-->
+                    <!--                         items-per-page="pagination.itemsPerPage"-->
+                    <!--                         ng-model="pagination.currentPage"-->
+                    <!--                         ng-change="doSearch()">-->
+                    <!--                    </ul>-->
+                    <!--                    <div style="float: right; margin: 15px">-->
+                    <!--                        <pre>Page: {{pagination.currentPage}} / {{pagination.numOfPage}}</pre>-->
+                    <!--                    </div>-->
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6">
+                            <button class="btn btn-outline-dark" ng-disabled="pagination.currentPage == 0"
+                                    ng-click="pageChange(pagination.currentPage-1)">
+                                Previous
+                            </button>
+                            {{pagination.currentPage+1}}/{{pagination.numOfPage}}
+                            <button class="btn btn-outline-dark"
+                                    ng-disabled="pagination.currentPage >= pagination.totalItems/pagination.itemsPerPage - 1"
+                                    ng-click="pageChange(pagination.currentPage+1)">
+                                Next
+                            </button>
+                        </div>
+                        <div class="col-sm-6" style="text-align: right;">
+                            <select class="custom-select" style="width: 10%" ng-model="pagination.itemsPerPage" ng-change="itemPerPageChange()">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

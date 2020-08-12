@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!--    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">-->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 </head>
 
-<body ng-app="myApp">
+<body ng-app="myApp" class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
     <div ng-include="'modules/header/header.html'"
          ng-if="location.path() !== '/login' && location.path() !== '/register'"></div>
@@ -33,25 +33,40 @@
     <div ng-view=""></div>
     <div ng-include="'modules/footer/footer.html'"
          ng-if="location.path() !== '/login' && location.path() !== '/register'"></div>
+    <div class="modal fade overlay d-flex justify-content-center align-items-center" ng-show="dataLoading">
+        <i class="fas fa-2x fa-sync fa-spin"></i>
+    </div>
 </div>
 
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular-route/angular-route.js"></script>
 <script src="lib/angular-cookies/angular-cookies.js"></script>
 <script src="lib/angular-recaptcha/release/angular-recaptcha.js"></script>
+<script src="lib/ngstorage/ngStorage.js"></script>
 
 <script src="app.js"></script>
-<script src="modules/authentication/login-controllers.js"></script>
-<script src="modules/authentication/register-controllers.js"></script>
-<script src="modules/authentication/authentication-services.js"></script>
+<script src="app.interceptors.js"></script>
 
-<script src="modules/category/category-controllers.js"></script>
-<script src="modules/category/create-update-category-controllers.js"></script>
-<script src="modules/category/category-services.js"></script>
+<script src="modules/common/common-controller.js"></script>
+<script src="modules/common/common-service.js"></script>
+<script src="modules/common/constants.js"></script>
 
-<script src="modules/news/news-controllers.js"></script>
-<script src="modules/news/create-update-news-controllers.js"></script>
-<script src="modules/news/news-services.js"></script>
+<script src="modules/modals/modal-service.js"></script>
+
+<script src="modules/authentication/login-controller.js"></script>
+<script src="modules/authentication/register-controller.js"></script>
+<script src="modules/authentication/authentication-service.js"></script>
+
+<script src="modules/category/category-controller.js"></script>
+<script src="modules/category/category-create-update-controller.js"></script>
+<script src="modules/category/category-service.js"></script>
+
+<script src="modules/news/news-controller.js"></script>
+<script src="modules/news/news-create-update-controller.js"></script>
+<script src="modules/news/news-service.js"></script>
+
+<script src="modules/log/log-controller.js"></script>
+<script src="modules/log/log-service.js"></script>
 
 <script src="core/version/version.js"></script>
 <script src="core/version/version-directive.js"></script>
@@ -104,6 +119,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.20/angular-ui-router.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
-
 </body>
 </html>

@@ -10,6 +10,9 @@ angular.module('myApp')
         'GCAPTCHA': {
             'SITE_KEY': '6Lfxp7sZAAAAAGMLFY8CpWZ_pl1sqBH8jxaYfv2h',
             'SECRET_KEY': '6Lfxp7sZAAAAADa5_Io1L6yFW9OOvYkPmRBab52M'
+        },
+        'CONFIG': {
+            'USER_ACTION': 'USER_ACTION'
         }
     })
 ;

@@ -16,7 +16,7 @@ angular.module('News')
                             }).then(function (response) {
                                 callback(response.data);
                             }, function (error) {
-                                CommonController.showNotiDanger('Error while calling get data api');
+//                                CommonController.showNotiDanger('Error while calling get data api');
                             });
                         };
 
@@ -29,7 +29,7 @@ angular.module('News')
                             }).then(function (response) {
                                 callback(response.data);
                             }, function (error) {
-                                CommonController.showNotiDanger('Error while calling get data api');
+//                                CommonController.showNotiDanger('Error while calling get data api');
                             });
                         };
 
@@ -41,7 +41,7 @@ angular.module('News')
                             }).then(function (response) {
                                 callback(response.data);
                             }, function (error) {
-                                CommonController.showNotiDanger('Error while calling get data api');
+//                                CommonController.showNotiDanger('Error while calling get data api');
                             });
                         };
 
@@ -54,7 +54,7 @@ angular.module('News')
                             }).then(function (response) {
                                 callback(response.data);
                             }, function (error) {
-                                CommonController.showNotiDanger('Error while calling add/update api');
+//                                CommonController.showNotiDanger('Error while calling add/update api');
                             });
                         };
 
@@ -66,7 +66,7 @@ angular.module('News')
                             }).then(function (response) {
                                 callback(response.data);
                             }, function (error) {
-                                CommonController.showNotiDanger('Error while calling delete api');
+//                                CommonController.showNotiDanger('Error while calling delete api');
                             });
                         };
                         return service;

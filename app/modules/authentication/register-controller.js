@@ -49,20 +49,26 @@ angular.module('Authentication')
 
                         vm.attachSignin = function (element) {
                             auth2.attachClickHandler(element, {}, function (googleUser) {
+                                vm.dataLoading = true;
+                                var div = $('div.modal.fade');
+                                $(div).removeClass('fade');
+
+                                var registerPage = $('div.register-box');
+                                $(registerPage).css({"opacity": "0.5"});
+
                                 AuthenticationService.registerGoogle(googleUser.getAuthResponse().id_token, function (response) {
                                     if (response.key === "SUCCESS") {
-                                        if (response.object.id == null) {
-                                            vm.object.name = response.object.name;
-                                            vm.object.email = response.object.email;
-                                        } else {
-                                            CommonController.showNotiDanger('You already sign up with this email. Please sign up with another email or sign in with this email !');
-                                        }
+                                        vm.object.name = response.object.name;
+                                        vm.object.email = response.object.email;
                                     } else {
-                                        CommonController.showNotiDanger('Error occur while getting your information from Google !');
+                                        CommonController.showNotiDanger(response.message);
                                     }
+                                    vm.dataLoading = false;
+                                    $(registerPage).removeAttr("style");
                                 });
                             }, function (error) {
                                 CommonController.showNotiDanger(error);
+                                vm.dataLoading = false;
                             });
                         };
 
@@ -76,16 +82,23 @@ angular.module('Authentication')
                                 return;
                             }
                             AuthenticationService.validateCaptcha(vcRecaptchaService.getResponse(), function (response) {
+                                vm.dataLoading = true;
+                                var registerPage = $('div.register-box');
+                                $(registerPage).css({"opacity": "0.5"});
+
                                 if (response.key === "SUCCESS") {
                                     AuthenticationService.register(vm.object, function (response) {
                                         if (response.key === "SUCCESS") {
                                             $location.path('login');
                                         }
                                         CommonController.showNotiCondition(response.key, 'Registration success !', response.message);
+                                        vm.dataLoading = false;
                                     });
                                 } else {
                                     CommonController.showNotiDanger(response.message);
+                                    vm.dataLoading = false;
                                 }
+                                $(registerPage).removeAttr("style");
                             });
                         };
                     }]);

@@ -3,32 +3,49 @@
 angular.module('Authentication')
 
         .controller('LoginController',
-                ['$scope', '$rootScope', '$location', 'AuthenticationService', 'Constants', 'vcRecaptchaService', '$timeout','CommonController',
-                    function ($scope, $rootScope, $location, AuthenticationService, Constants, vcRecaptchaService, $timeout, CommonController) {
+                ['$location', 'AuthenticationService', 'Constants', 'vcRecaptchaService', '$timeout', 'CommonController', '$scope', '$rootScope',
+                    function ($location, AuthenticationService, Constants, vcRecaptchaService, $timeout, CommonController, $scope, $rootScope) {
                         // reset login status
-                        AuthenticationService.ClearCredentials();
+//                        service.clearCredentials();
 
                         var vm = $scope;
 
                         vm.rememberMe = true;
+                        $rootScope.dataLoading = false;
 
                         vm.doLogin = function () {
                             if (vcRecaptchaService.getResponse() === "") {
-                                vm.showNotiDanger("Please resolve the captcha and submit!");
+                                CommonController.showNotiDanger("Please resolve the captcha and submit!");
                                 return;
                             }
                             AuthenticationService.validateCaptcha(vcRecaptchaService.getResponse(), function (response) {
                                 if (response.key === "SUCCESS") {
-                                    AuthenticationService.login(vm.email, vm.password, function (response) {
+                                    $rootScope.dataLoading = true;
+                                    var div = $('div.modal.fade');
+                                    $(div).removeClass('fade');
+
+                                    var loginPage = $('div.login-box');
+                                    $(loginPage).css({"opacity": "0.5"});
+
+                                    var data = {
+                                        email: vm.email,
+                                        password: vm.password,
+                                        rememberMe: vm.rememberMe
+                                    };
+
+                                    AuthenticationService.login(data, function (response) {
                                         if (response.key === "SUCCESS") {
-                                            AuthenticationService.SetCredentials(response.object);
+                                            AuthenticationService.setCredentials(response.object);
                                             $location.path('/');
                                         } else {
                                             CommonController.showNotiDanger(response.message);
                                         }
+                                        $rootScope.dataLoading = false;
+                                        $(loginPage).removeAttr("style");
                                     });
                                 } else {
                                     CommonController.showNotiDanger(response.message);
+                                    $(loginPage).removeAttr("style");
                                 }
                             });
                         };
@@ -53,13 +70,26 @@ angular.module('Authentication')
 
                         vm.attachSignin = function (element) {
                             auth2.attachClickHandler(element, {}, function (googleUser) {
-                                AuthenticationService.loginGoogle(googleUser.getAuthResponse().id_token, function (response) {
+                                $rootScope.dataLoading = true;
+                                var div = $('div.modal.fade');
+                                $(div).removeClass('fade');
+
+                                var loginPage = $('div.login-box');
+                                $(loginPage).css({"opacity": "0.5"});
+
+                                var data = {
+                                    token: googleUser.getAuthResponse().id_token,
+                                    remeberMe: vm.rememberMe
+                                };
+                                AuthenticationService.loginGoogle(data, function (response) {
                                     if (response.key === "SUCCESS") {
-                                        AuthenticationService.SetCredentials(response.object);
+                                        AuthenticationService.setCredentials(response.object);
                                         $location.path('/');
                                     } else {
                                         CommonController.showNotiDanger(response.message);
                                     }
+                                    $rootScope.dataLoading = false;
+                                    $(loginPage).removeAttr("style");
                                 });
                             }, function (error) {
                                 CommonController.showNotiDanger(error);
@@ -68,10 +98,5 @@ angular.module('Authentication')
 
                         vm.doRegister = function () {
                             $location.path('register');
-                        };
-
-                        $rootScope.rememberUserCookie = true;
-                        vm.changeValue = function () {
-                            $rootScope.rememberUserCookie = vm.rememberMe;
                         };
                     }]);
