@@ -18,14 +18,14 @@
 
         <section class="content-header">
             <div class="row col-sm-12">
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>User</label>
                         <input type="text" class="form-control" placeholder="Enter email or name ..."
                                ng-model="objectSearch.email">
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Log type</label>
                         <select class="form-control" ng-model="objectSearch.logType">
@@ -34,7 +34,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>Log status</label>
                         <select class="form-control" ng-model="objectSearch.status">
@@ -46,7 +46,16 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>Log message</label>
+                        <label>Issue date range:</label>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-clock"></i></span>
+                            <input type="text" class="form-control float-right" id="reservationtime">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Log message</label>
+                    <div class="form-group">
                         <input type="text" class="form-control" placeholder="Enter log message ..."
                                ng-model="objectSearch.message">
                     </div>
@@ -58,11 +67,6 @@
                             class="fas fa-search"></i> Search
                     </button>
                 </div>
-<!--                <div class="col-sm-6">
-                    <button type="button" class="btn btn-primary"><i
-                            class="fas fa-plus"></i> Add new
-                    </button>
-                </div>-->
             </div>
         </section>
 
@@ -81,19 +85,19 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th style="width: 15%">
+                            <th style="width: 20%">
                                 User
                             </th>
-                            <th style="width: 10%">
+                            <th style="width: 20%">
                                 Log type
                             </th>
-                            <th style="width: 15%" class="text-center">
+                            <th style="width: 20%">
                                 Status
                             </th>
-                            <th style="width: 45%">
+                            <th style="width: 20%">
                                 Message
                             </th>
-                            <th style="width: 10%">
+                            <th style="width: 20%">
                             </th>
                         </tr>
                         </thead>
@@ -117,11 +121,9 @@
                                     {{log.logType}}
                                 </a>
                             </td>
-                            <td class="project-state text-center">
-                                    <span ng-show="log.status == 'SUCCESS' " class="badge badge-success">
-                                        {{log.status}}
-                                    </span>
-                                <span ng-show="log.status == 'FAIL' " class="badge badge-danger">
+                            <td class="project-state">
+                                    <span class="badge"
+                                          ng-class="(log.status == 'SUCCESS' ? 'badge-success' : 'badge-danger')">
                                         {{log.status}}
                                     </span>
                             </td>
@@ -131,7 +133,7 @@
                                 </a>
                             </td>
                             <td class="project-actions text-right">
-                                <button type="button" class="btn btn-default btn-sm">
+                                <button type="button" data-toggle="modal" class="btn btn-default btn-sm" ng-click="viewDetail(log)">
                                     <i class="fas fa-info"></i> View detail
                                 </button>
                             </td>
@@ -140,16 +142,6 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                    <!--                    <ul class="pagination" uib-pagination-->
-                    <!--                         boundary-links="true"-->
-                    <!--                         total-items="pagination.totalItems"-->
-                    <!--                         items-per-page="pagination.itemsPerPage"-->
-                    <!--                         ng-model="pagination.currentPage"-->
-                    <!--                         ng-change="doSearch()">-->
-                    <!--                    </ul>-->
-                    <!--                    <div style="float: right; margin: 15px">-->
-                    <!--                        <pre>Page: {{pagination.currentPage}} / {{pagination.numOfPage}}</pre>-->
-                    <!--                    </div>-->
                     <div class="row col-sm-12">
                         <div class="col-sm-6">
                             <button class="btn btn-outline-dark" ng-disabled="pagination.currentPage == 0"
@@ -164,7 +156,8 @@
                             </button>
                         </div>
                         <div class="col-sm-6" style="text-align: right;">
-                            <select class="custom-select" style="width: 10%" ng-model="pagination.itemsPerPage" ng-change="itemPerPageChange()">
+                            <select class="custom-select" style="width: 10%" ng-model="pagination.itemsPerPage"
+                                    ng-change="itemPerPageChange()">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>

@@ -33,7 +33,7 @@
     <div ng-view=""></div>
     <div ng-include="'modules/footer/footer.html'"
          ng-if="location.path() !== '/login' && location.path() !== '/register'"></div>
-    <div class="modal fade overlay d-flex justify-content-center align-items-center" ng-show="dataLoading">
+    <div class="modal fade overlay d-flex justify-content-center align-items-center" id="loadingIcon" ng-show="dataLoading">
         <i class="fas fa-2x fa-sync fa-spin"></i>
     </div>
 </div>
@@ -58,14 +58,15 @@
 <script src="modules/authentication/authentication-service.js"></script>
 
 <script src="modules/category/category-controller.js"></script>
-<script src="modules/category/category-create-update-controller.js"></script>
+<script src="modules/category/category-detail-controller.js"></script>
 <script src="modules/category/category-service.js"></script>
 
 <script src="modules/news/news-controller.js"></script>
-<script src="modules/news/news-create-update-controller.js"></script>
+<script src="modules/news/news-detail-controller.js"></script>
 <script src="modules/news/news-service.js"></script>
 
 <script src="modules/log/log-controller.js"></script>
+<script src="modules/log/log-detail-controller.js"></script>
 <script src="modules/log/log-service.js"></script>
 
 <script src="core/version/version.js"></script>

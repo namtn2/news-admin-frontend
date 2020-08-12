@@ -22,10 +22,33 @@ angular.module('Modals')
 
                     $timeout(function () {
                         var div = $('div.modal');
-                        $(div).removeClass('fade');
+                        if (div.hasClass('in')) {
+                            $(div).removeClass('fade');
+                        }
                     }, 100);
                 }
             });
+        };
+
+        popup.openPopup = function (templateUrl, templateController, object) {
+            $uibModal.open({
+                templateUrl: templateUrl,
+                backdrop: 'static',
+                size: 'lg',
+                animation: true,
+                resolve: {
+                    dataLog: function () {
+                        return object;
+                    }
+                },
+                controller: templateController
+            });
+            $timeout(function () {
+                var div = $('div.modal');
+                if (div.hasClass('in')) {
+                    $(div).removeClass('fade');
+                }
+            }, 300);
         };
 
         return popup;

@@ -40,7 +40,7 @@ angular.module('myApp', [
                         })
                         .when('/modal-category', {
                             controller: 'CreateUpdateCategoryController',
-                            templateUrl: 'modules/category/category-create-update.html'
+                            templateUrl: 'modules/category/category-detail.html'
                         })
                         .when('/news', {
                             controller: 'NewsController',
@@ -48,7 +48,7 @@ angular.module('myApp', [
                         })
                         .when('/modal-news', {
                             controller: 'CreateUpdateNewsController',
-                            templateUrl: 'modules/news/news-create-update.html'
+                            templateUrl: 'modules/news/news-detail.html'
                         })
                         .when('/', {
                             templateUrl: 'modules/home/home.html'

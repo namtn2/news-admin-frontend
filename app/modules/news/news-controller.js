@@ -32,6 +32,7 @@ angular.module('News')
                     $timeout(function () {
                         //timeout for waiting categories is queried
                         NewsService.search(object, function (response) {
+                            vm.news = [];
                             if (response.key === "SUCCESS") {
                                 if (response.lst) {
                                     var lst = response.lst;

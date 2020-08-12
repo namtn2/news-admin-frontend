@@ -25,6 +25,7 @@ angular.module('Category')
                         object.active = null;
                     }
                     CategoryService.search(object, function (response) {
+                        vm.categories = [];
                         if (response.key === "SUCCESS") {
                             if (response.lst) {
                                 var lst = response.lst;

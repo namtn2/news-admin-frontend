@@ -93,21 +93,13 @@ angular.module('Authentication')
                                 data: object
                             }).then(function (response) {
                                 $rootScope.dataLoading = true;
-                                var div = $('div.modal.fade');
-                                $(div).removeClass('fade');
-
-                                var loginPage = $('div.wrapper')[0];
-                                $(loginPage).css({"opacity": "0.5"});
 
                                 if (response.data.key == 'SUCCESS') {
                                     service.setCredentials(response.data.object);
                                 } else {
                                     service.clearCredentials();
                                 }
-                                $timeout(function () {
-                                    $rootScope.dataLoading = false;
-                                    $(loginPage).removeAttr("style");
-                                }, 500);
+                                $rootScope.dataLoading = false;
                             }, function (error) {
                                 CommonController.showNotiDanger('Error while trying to call api refresh token');
                             });

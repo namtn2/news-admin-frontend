@@ -1,0 +1,53 @@
+<div class="modal-content" role="dialog">
+    <section class="modal-title content-header container-fluid">
+        <h4 class="modal-title">Log detail</h4>
+    </section>
+
+    <section class="modal-body">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>User</label>
+                <input type="text" class="form-control" ng-model="log.name" disabled>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" ng-model="log.email" disabled>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Issue at</label>
+                <input type="text" class="form-control" ng-model="log.createTime | date: 'dd/MM/yyyy HH:mm:ss'" disabled>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Log type</label>
+                <input type="text" class="form-control" ng-model="log.logType" disabled>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Log status</label>
+                <span class="badge" ng-class="(log.status == 'SUCCESS' ? 'badge-success' : 'badge-danger')">{{log.status}}</span>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Log message</label>
+                <input type="text" class="form-control" ng-model="log.message" disabled>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Log content</label>
+                <textarea type="text" style="height: 150px" class="form-control" ng-model="log.content" disabled></textarea>
+            </div>
+        </div>
+    </section>
+    <section class="modal-footer">
+        <button class="btn btn-danger" ng-click="doClose()">Cancel</button>
+    </section>
+</div>

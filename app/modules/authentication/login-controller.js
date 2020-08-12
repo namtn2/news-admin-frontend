@@ -21,11 +21,6 @@ angular.module('Authentication')
                             AuthenticationService.validateCaptcha(vcRecaptchaService.getResponse(), function (response) {
                                 if (response.key === "SUCCESS") {
                                     $rootScope.dataLoading = true;
-                                    var div = $('div.modal.fade');
-                                    $(div).removeClass('fade');
-
-                                    var loginPage = $('div.login-box');
-                                    $(loginPage).css({"opacity": "0.5"});
 
                                     var data = {
                                         email: vm.email,
@@ -41,11 +36,9 @@ angular.module('Authentication')
                                             CommonController.showNotiDanger(response.message);
                                         }
                                         $rootScope.dataLoading = false;
-                                        $(loginPage).removeAttr("style");
                                     });
                                 } else {
                                     CommonController.showNotiDanger(response.message);
-                                    $(loginPage).removeAttr("style");
                                 }
                             });
                         };
@@ -71,11 +64,6 @@ angular.module('Authentication')
                         vm.attachSignin = function (element) {
                             auth2.attachClickHandler(element, {}, function (googleUser) {
                                 $rootScope.dataLoading = true;
-                                var div = $('div.modal.fade');
-                                $(div).removeClass('fade');
-
-                                var loginPage = $('div.login-box');
-                                $(loginPage).css({"opacity": "0.5"});
 
                                 var data = {
                                     token: googleUser.getAuthResponse().id_token,
@@ -89,7 +77,6 @@ angular.module('Authentication')
                                         CommonController.showNotiDanger(response.message);
                                     }
                                     $rootScope.dataLoading = false;
-                                    $(loginPage).removeAttr("style");
                                 });
                             }, function (error) {
                                 CommonController.showNotiDanger(error);

@@ -3,8 +3,8 @@
 angular.module('Authentication')
 
         .controller('RegisterController',
-                ['$scope', '$location', 'AuthenticationService', 'Constants', 'vcRecaptchaService', '$timeout', 'CommonController',
-                    function ($scope, $location, AuthenticationService, Constants, vcRecaptchaService, $timeout, CommonController) {
+                ['$scope', '$location', 'AuthenticationService', 'Constants', 'vcRecaptchaService', '$timeout', 'CommonController', '$rootScope',
+                    function ($scope, $location, AuthenticationService, Constants, vcRecaptchaService, $timeout, CommonController, $rootScope) {
 
                         var vm = $scope;
 
@@ -49,12 +49,7 @@ angular.module('Authentication')
 
                         vm.attachSignin = function (element) {
                             auth2.attachClickHandler(element, {}, function (googleUser) {
-                                vm.dataLoading = true;
-                                var div = $('div.modal.fade');
-                                $(div).removeClass('fade');
-
-                                var registerPage = $('div.register-box');
-                                $(registerPage).css({"opacity": "0.5"});
+                                $rootScope.dataLoading = true;
 
                                 AuthenticationService.registerGoogle(googleUser.getAuthResponse().id_token, function (response) {
                                     if (response.key === "SUCCESS") {
@@ -63,12 +58,10 @@ angular.module('Authentication')
                                     } else {
                                         CommonController.showNotiDanger(response.message);
                                     }
-                                    vm.dataLoading = false;
-                                    $(registerPage).removeAttr("style");
+                                    $rootScope.dataLoading = false;
                                 });
                             }, function (error) {
                                 CommonController.showNotiDanger(error);
-                                vm.dataLoading = false;
                             });
                         };
 
@@ -82,9 +75,7 @@ angular.module('Authentication')
                                 return;
                             }
                             AuthenticationService.validateCaptcha(vcRecaptchaService.getResponse(), function (response) {
-                                vm.dataLoading = true;
-                                var registerPage = $('div.register-box');
-                                $(registerPage).css({"opacity": "0.5"});
+                                $rootScope.dataLoading = true;
 
                                 if (response.key === "SUCCESS") {
                                     AuthenticationService.register(vm.object, function (response) {
@@ -92,13 +83,11 @@ angular.module('Authentication')
                                             $location.path('login');
                                         }
                                         CommonController.showNotiCondition(response.key, 'Registration success !', response.message);
-                                        vm.dataLoading = false;
                                     });
                                 } else {
                                     CommonController.showNotiDanger(response.message);
-                                    vm.dataLoading = false;
                                 }
-                                $(registerPage).removeAttr("style");
+                                $rootScope.dataLoading = false;
                             });
                         };
                     }]);
